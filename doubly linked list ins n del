@@ -1,0 +1,109 @@
+#include<stdio.h>
+#include<malloc.h>
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *nxt;
+}*head=NULL;
+void insatend(int x)
+{
+    struct node *temp,*r;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=x;
+    temp->prev=NULL;
+    temp->nxt=NULL;
+    if(head==NULL)
+    {
+        head=temp;
+    }
+    r=head;
+    while(r->nxt!=NULL)
+    {
+        r=r->nxt;
+    }
+    r->nxt=temp;
+    temp->prev=r;
+    temp->nxt=NULL;
+    r=temp;
+}
+void insatpos(int x,int pos)
+{
+    struct node *m,*r,*temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=x;
+    temp->prev=NULL;
+    temp->nxt=NULL;
+    if(head==NULL)
+    {
+        head=temp;
+    }
+    r=head;
+    int i;
+    for(i=1;i<pos;i++)
+    {
+         r=r->nxt;
+    }
+    r->prev->nxt=temp;
+    temp->prev=r->prev;
+    temp->nxt=r;
+    r->prev=temp;
+}
+void delatend()
+{
+    struct node *r;
+    if(head==NULL)
+    {
+        printf("\n cant delete");
+    }
+    r=head;
+    while(r->nxt!=NULL)
+    {
+        r=r->nxt;
+    }
+    //printf("\n\t%d\n",r->data);
+    r->prev->nxt=NULL;
+}
+void delatpos(int pos)
+{
+    struct node *r;
+    if(head==NULL)
+    {
+        printf("cant delete");
+    }
+    r=head;
+    int i;
+    for(i=1;i<pos;i++)
+    {
+        r=r->nxt;
+    }
+    printf("\n\t%d\n",r->data);
+    r->prev->nxt=r->nxt;
+    r->nxt->prev=r->prev;
+    free(r);
+}
+void display()
+{
+    struct node *trav;
+    trav=head;
+    while(trav!=NULL)
+    {
+        printf("%d\n",trav->data);
+        trav=trav->nxt;
+    }
+    printf("\n");
+}
+int main()
+{
+    insatend(2);
+    insatend(3);
+    insatend(4);
+    insatend(5);
+    display();
+    insatpos(6,3);
+    display();
+    delatend();
+    display();
+    delatpos(3);
+    display();
+}
