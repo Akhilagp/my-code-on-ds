@@ -1,0 +1,136 @@
+#include<stdio.h>
+#include<malloc.h>
+struct node
+{
+    int data;
+    struct node* nxt;
+}*head=NULL;
+void insatbeg(int x)
+{
+    struct node *temp,*r;
+    temp=(struct node*)malloc(sizeof(struct node));
+    r=(struct node*)malloc(sizeof(struct node));
+    temp->nxt=NULL;
+    temp->data=x;
+    if(head==NULL)
+    {
+        head=temp;
+        head->nxt=NULL;
+    }
+    else
+    {
+    r=head;
+    temp->nxt=r;
+    r=temp;
+    head=r;
+    }
+}
+void insatend(int x)
+{
+    struct node *t,*m;
+    t=(struct node*)malloc(sizeof(struct node));
+    t->data=x;
+    t->nxt=NULL;
+    if(head==NULL)
+    {
+        head=t;
+        head->nxt=NULL;
+    }
+
+        m=head;
+        while(m->nxt!=NULL)
+        {
+            m=m->nxt;
+        }
+        m->nxt=t;
+        t->nxt=NULL;
+        m=t;
+
+}
+void insatpos(int x,int pos)
+{
+    int i;
+    struct node *temp,*m,*r;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=x;
+    temp->nxt=NULL;
+     if(head==NULL)
+     {
+         head=temp;
+         head->nxt=NULL;
+     }
+     r=head;
+     for(i=1;i<pos;i++)
+     {
+         m=r;
+         r=r->nxt;
+     }
+     temp->nxt=r;
+     m->nxt=temp;
+}
+void delatbeg()
+{
+    struct node *r;
+    if(head==NULL)
+        printf("\n cant delete");
+    r=head;
+    head=head->nxt;
+    free(r);
+}
+void delatend()
+{
+    struct node *r,*m;
+    r=head;
+    while(r->nxt!=NULL)
+    {
+        m=r;
+        r=r->nxt;
+    }
+    m->nxt=NULL;
+    free(r);
+}
+void delatpos(int pos)
+{
+    struct node *m,*r;
+    r=head;
+    int i;
+    for(i=1;i<pos;i++)
+    {
+        m=r;
+        r=r->nxt;
+    }
+    m->nxt=r->nxt;
+    free(r);
+}
+void display()
+{
+    struct node *trav;
+    trav=head;
+    while(trav!=NULL)
+    {
+        printf("%d\n",trav->data);
+        trav=trav->nxt;
+    }
+    printf("\n");
+}
+int main()
+{
+    insatbeg(2);
+    insatbeg(3);
+    insatbeg(5);
+    insatpos(4,4);
+    insatpos(23,5);
+    insatend(6);
+    insatend(7);
+    insatend(8);
+    printf("\n after insertion\n");
+    display();
+    delatbeg();
+    display();
+    delatend();
+    display();
+    delatpos(3);
+    display();
+    delatpos(3);
+    display();
+}
