@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *nxt;
+}*top=NULL;
+void push(int x)
+{
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    temp->data=x;
+    temp->nxt=NULL;
+    if(top==NULL)
+    {
+        top=temp;
+    }
+    else
+    {
+        temp->nxt=top;
+        top=temp;
+    }
+}
+void pop()
+{
+    if(top==NULL)
+    {
+        printf("cant delete");
+    }
+    else
+    {
+        struct node *tmp;
+        tmp=top;
+        top=top->nxt;
+        free(tmp);
+    }
+}
+void peep()
+{
+    if(top==NULL)
+    {
+        printf("nothing in stack");
+    }
+    else
+    {
+        printf("\n the topmost element is %d\n",top->data);
+    }
+}
+void display()
+{
+    struct node *trav;
+    trav=top;
+    while(trav!=NULL)
+    {
+    printf("%d\t",trav->data);
+    trav=trav->nxt;
+    }
+}
+int main()
+{
+    push(23);
+    push(34);
+    push(45);
+    printf("\n");
+    display();
+    printf("\n");
+    peep();
+    pop();
+    display();
+}
