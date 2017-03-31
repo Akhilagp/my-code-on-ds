@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<malloc.h>
+struct node
+{
+    int data;
+    struct node *nxt;
+}*f=NULL,*r=NULL;
+void enqueue(int x)
+{
+    struct node *tmp;
+    tmp=(struct node*)malloc(sizeof(struct node));
+    tmp->data=x;
+    tmp->nxt=NULL;
+    if(f==NULL)
+    {
+        f=tmp;
+        r=tmp;
+    }
+    else
+    {
+        r->nxt=tmp;
+        r=tmp;
+    }
+}
+void deq()
+{
+    if(f==r)
+    {
+        f=NULL;
+        r=NULL;
+    }
+    else
+    {
+        struct node *temp;
+        temp=f;
+        f=f->nxt;
+        free(temp);
+    }
+}
+void disp()
+{
+    struct node *trav;
+    trav=f;
+    while(trav!=NULL)
+    {
+        printf("%d\t",trav->data);
+        trav=trav->nxt;
+    }
+}
+int main()
+{
+    enqueue(23);
+    enqueue(34);
+    enqueue(45);
+    enqueue(56);
+    enqueue(67);
+    enqueue(78);
+    disp();
+    printf("\n");
+    deq();
+    deq();
+    disp();
+}
