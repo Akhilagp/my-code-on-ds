@@ -5,7 +5,7 @@ struct node
     int data,count;
     struct node *left,*right;
 };
-struct node *new(int x)
+struct node *new(int x)//creating first node
 {
  struct node *temp;
  temp=(struct node*)malloc(sizeof(struct node));
