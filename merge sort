@@ -1,0 +1,50 @@
+#include<stdio.h>
+int c[10];
+void merge(int a[],int low,int mid,int high)
+{
+
+    int l1,l2,i;
+    i=low;l1=low;
+    l2=mid+1;
+   while(l1<=mid&&l2<=high)
+   {
+    if(a[l1]<a[l2])
+        c[i++]=a[l1++];
+   else
+        c[i++]=a[l2++];
+   }
+   while(l1<=mid)
+   {
+       c[i++]=a[l1++];
+   }
+   while(l2<=high)
+   {
+       c[i++]=a[l2++];
+   }
+   for(i=low;i<=high;i++)
+    a[i]=c[i];
+}
+void msort(int a[],int low,int high)
+{
+    int mid;
+    if(low<high)
+    {
+        mid=(low+high)/2;
+        msort(a,low,mid);
+        msort(a,mid+1,high);
+        merge(a,low,mid,high);
+    }
+    else
+        return;
+}
+int main()
+{
+    int n,i;
+    scanf("%d",&n);
+    int a[n];
+    for(i=0;i<n;i++)
+        scanf("%d",&a[i]);
+    msort(a,0,n-1);
+    for(i=0;i<n;i++)
+        printf("%d\t",a[i]);
+}
